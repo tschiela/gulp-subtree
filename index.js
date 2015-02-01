@@ -25,7 +25,7 @@ module.exports = function (options) {
       );
     }
 
-    var folder = path.basename(file);
+    var folder = path.relative(file.cwd, file.path).replace(/\\/g, '/');
 
     var remote = 'origin';
     var branch = 'gh-pages';
@@ -35,8 +35,6 @@ module.exports = function (options) {
       branch = options.branch || branch;
       message = options.message || message;
     }
-
-
 
     // execute('git add ' + folder, function () {
     execute('git add ' + folder + ' && git commit -m "' + message + '"', function () {
